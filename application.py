@@ -1,17 +1,42 @@
 from flask import Flask
+from flask import jsonify
+from flask import request
+from flask_pymongo import PyMongo
 
-def say_hello():
-    return '<p>Hello World...!!!</p>'
+app = Flask(__name__)
 
-# EB looks for an 'application' callable by default.
-application = Flask(__name__)
+app.config['MONGO_DBNAME'] = 'restdb'
+app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017/restdb'
 
-# add a rule for the index page.
-application.add_url_rule('/', 'index', (lambda: say_hello()))
+mongo = PyMongo(app)
 
-# run the app.
-if __name__ == "__main__":
-    # Setting debug to True enables debug output. This line should be
-    # removed before deploying a production app.
-    application.debug = True
-    application.run()
+@app.route('/star', methods=['GET'])
+def get_all_stars():
+  star = mongo.db.stars
+  output = []
+  for s in star.find():
+    output.append({'name' : s['name'], 'distance' : s['distance']})
+  return jsonify({'result' : output})
+
+@app.route('/star/', methods=['GET'])
+def get_one_star(name):
+  star = mongo.db.stars
+  s = star.find_one({'name' : name})
+  if s:
+    output = {'name' : s['name'], 'distance' : s['distance']}
+  else:
+    output = "No such name"
+  return jsonify({'result' : output})
+
+@app.route('/star', methods=['POST'])
+def add_star():
+  star = mongo.db.stars
+  name = request.json['name']
+  distance = request.json['distance']
+  star_id = star.insert({'name': name, 'distance': distance})
+  new_star = star.find_one({'_id': star_id })
+  output = {'name' : new_star['name'], 'distance' : new_star['distance']}
+  return jsonify({'result' : output})
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',port=5000,debug=True)
