@@ -1,14 +1,27 @@
+
 from flask import Flask
 from flask import jsonify
 from flask import request
-from flask_pymongo import PyMongo
+import pymongo
 
 app = Flask(__name__)
 
-app.config['MONGO_DBNAME'] = 'restdb'
-app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017/restdb'
+config = {
+    "username": "root",
+    "password": "Secret",
+    "server": "mongo",
+}
 
-mongo = PyMongo(app)
+connector = "mongodb://{}:{}@{}".format(config["username"], config["password"], config["server"])
+client = pymongo.MongoClient(connector)
+
+#app.config['MONGO_DBNAME'] = 'flaskdb'
+#app.config['MONGO_URI'] = 'mongodb://127.0.0.1:27017/flaskdb'
+
+
+#app.config["MONGO_URI"] = 'mongodb://' + os.environ['MONGODB_USERNAME'] + ':' + os.environ['MONGODB_PASSWORD'] + '@' + os.environ['MONGODB_HOSTNAME'] + ':27017/' + os.environ['MONGODB_DATABASE']
+
+mongo = client["demo"]
 
 @app.route('/star', methods=['GET'])
 def get_all_stars():
