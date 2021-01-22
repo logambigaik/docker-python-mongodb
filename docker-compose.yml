@@ -1,14 +1,26 @@
 version: "3"
 services:
-  mymongodb:
+  mongodb:
     image: mongo:latest
-    container_name: "mymongodb"
+    container_name: "mongodb"
     ports:
      - 27017:27017
-  springboot-mongodb:
-    image: python-mongodb:v1
-    container_name: python-mongodb
+  flask:
+    build:
+      context: python-mongodb
+      dockerfile: Dockerfile
+      container_name: flask
+      image: flask-python:v1
+      restart: unless-stopped
+    environment:
+      APP_ENV: "prod"
+      APP_DEBUG: "False"
+      APP_PORT: 5000
+      MONGODB_DATABASE: flaskdb
+      MONGODB_USERNAME: flaskuser
+      MONGODB_PASSWORD: flaskuser
+      MONGODB_HOSTNAME: mongodb
     ports:
       - 5000:5000
     links:
-      - mymongodb 
+      - mongodb 
