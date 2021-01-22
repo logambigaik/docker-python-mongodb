@@ -92,7 +92,7 @@
 
     docker-compose down
     
- #With docker run:
+ # With docker run:
 
     docker run --name mongodb -p 27017:27017 -d mongo:latest
     
@@ -110,6 +110,9 @@ e86f0685cfc1        mongo:latest                "docker-entrypoint.s…"   3 min
 ![image](https://user-images.githubusercontent.com/54719289/105494367-ae33eb80-5ce0-11eb-9ce9-05bdababe48a.png)
 
 
+# After run:
+
+![image](https://user-images.githubusercontent.com/54719289/105495045-acb6f300-5ce1-11eb-8b1f-e050816f2bb5.png)
 
 
 
