@@ -58,3 +58,8 @@ def get():
         app.logger.info(doc)
         return redirect(url_for('person', idnum=doc["id"]) )
     return render_template('main.html', error="Could not find that person")
+
+
+if __name__ == '__main__':
+    app.run(host='0.0.0.0',port=5000,debug=True)
+
