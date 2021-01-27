@@ -72,12 +72,16 @@
 
 # Build the docker-compose:
 
-    docker-compose build
+    docker-compose build   
 
 #Run the container :
 
     docker-compose up
 
+    or docker-compose up -d
+    
+    and push the image docker-compose push
+    
 #  After execution :
     
  ![image](https://user-images.githubusercontent.com/54719289/105493795-dd962880-5cdf-11eb-9aa9-90d96b2c0bd8.png)
@@ -113,6 +117,36 @@ e86f0685cfc1        mongo:latest                "docker-entrypoint.s…"   3 min
 # After run:
 
 ![image](https://user-images.githubusercontent.com/54719289/105495045-acb6f300-5ce1-11eb-8b1f-e050816f2bb5.png)
+
+
+# Docker stack:
+
+docker stack deploy --compose-file docker-compose.yml pymongo
+
+
+![image](https://user-images.githubusercontent.com/54719289/106039631-57268000-60ff-11eb-9f0b-05e56b966b4e.png)
+
+# Adding Node:
+
+![image](https://user-images.githubusercontent.com/54719289/106039735-7c1af300-60ff-11eb-9bdb-1b2a3c851251.png)
+
+# Services running in master:
+
+![image](https://user-images.githubusercontent.com/54719289/106039814-9654d100-60ff-11eb-9897-0edc6f30b7dc.png)
+
+![image](https://user-images.githubusercontent.com/54719289/106040157-0ebb9200-6100-11eb-90c1-34e017a2354e.png)
+
+# Services runnng in slave:
+
+![image](https://user-images.githubusercontent.com/54719289/106039907-b8e6ea00-60ff-11eb-8553-8a99f65c5502.png)
+
+![image](https://user-images.githubusercontent.com/54719289/106040042-e6339800-60ff-11eb-8807-827d03c49060.png)
+
+
+# Default docker network:
+
+![image](https://user-images.githubusercontent.com/54719289/106040262-327ed800-6100-11eb-8a50-f9df371c19e7.png)
+
 
 
 
