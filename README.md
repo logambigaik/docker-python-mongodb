@@ -51,9 +51,9 @@
     
     sudo chmod +x /usr/local/bin/docker-compose
     
-    [root@ip-172-31-18-154 ~]# echo $PATH
+             [root@ip-172-31-18-154 ~]# echo $PATH
     
-    /usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
+              /usr/local/sbin:/sbin:/bin:/usr/sbin:/usr/bin:/root/bin
     
     ln -s /usr/local/bin/docker-compose /usr/bin/docker-compose
     
@@ -148,6 +148,69 @@ docker stack deploy --compose-file docker-compose.yml pymongo
 ![image](https://user-images.githubusercontent.com/54719289/106040262-327ed800-6100-11eb-8a50-f9df371c19e7.png)
 
 
+# Changing network to this application:
+
+        For creating network :
+        
+            docker network create pymongo-bridge --driver=bridge
+            
+            docker network create pymongo-overlay --driver=overlay
+            
+![image](https://user-images.githubusercontent.com/54719289/106157395-ad9bc900-61a8-11eb-8d50-1e1287c0b598.png)
+
+            
+            
+# Docker compose with network:
 
 
+![image](https://user-images.githubusercontent.com/54719289/106156975-3108ea80-61a8-11eb-97f2-bbb46ebdd527.png)
+
+
+![image](https://user-images.githubusercontent.com/54719289/106157337-9eb51680-61a8-11eb-9537-8f387baf2d4e.png)
+
+
+# Docker ps after compose up:
+
+![image](https://user-images.githubusercontent.com/54719289/106157531-d15f0f00-61a8-11eb-9d73-74fffc1efea7.png)
  
+
+![image](https://user-images.githubusercontent.com/54719289/106157660-f05da100-61a8-11eb-8fac-790015b256a5.png)
+
+
+# Adding node:
+
+    docker swarm join-token worker  -> in master and run the belwo token in node
+    
+       docker swarm join --token SWMTKN-1-0cyoevf5au6nym9047gxr42bzxghps7bdauu2egys3ehvj1z42-4pn23d0n58vebflofbqezxxwt 172.31.32.71:2377
+
+
+![image](https://user-images.githubusercontent.com/54719289/106158557-dec8c900-61a9-11eb-9674-71fd4469478e.png)
+
+
+# Docker stack with bridge network:
+
+      docker-compose push
+ 
+  REMOVED NETWORK NAME IN DOCKERSTACK-COMPOSE.YML 
+  
+![image](https://user-images.githubusercontent.com/54719289/106160443-d5d8f700-61ab-11eb-9aa3-c4b094a7a430.png)
+
+
+![image](https://user-images.githubusercontent.com/54719289/106160985-70393a80-61ac-11eb-833d-97a5341fc926.png)
+
+
+# After updating network as overlay:
+
+![image](https://user-images.githubusercontent.com/54719289/106161168-a7a7e700-61ac-11eb-94b6-b358c89c90ad.png)
+
+![image](https://user-images.githubusercontent.com/54719289/106161293-cd34f080-61ac-11eb-94bc-82174616ed27.png)
+
+    master:
+    
+![image](https://user-images.githubusercontent.com/54719289/106161918-898eb680-61ad-11eb-96f8-46ab1de58b39.png)
+
+
+  node:
+  
+![image](https://user-images.githubusercontent.com/54719289/106162039-a88d4880-61ad-11eb-85e7-6005ec9d38ce.png)
+
