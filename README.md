@@ -214,3 +214,9 @@ docker stack deploy --compose-file docker-compose.yml pymongo
   
 ![image](https://user-images.githubusercontent.com/54719289/106162039-a88d4880-61ad-11eb-85e7-6005ec9d38ce.png)
 
+
+
+### For monitoring:
+
+
+https://docs.docker.com/config/daemon/prometheus/
