@@ -220,3 +220,69 @@ docker stack deploy --compose-file docker-compose.yml pymongo
 
 
 https://docs.docker.com/config/daemon/prometheus/
+
+```
+docker service create --replicas 1 --name my-prometheus \
+    --mount type=bind,source=/tmp/prometheus.yaml,destination=/etc/prometheus/prometheus.yml \
+    --publish published=9090,target=9090,protocol=tcp \
+    prom/prometheus
+    
+```
+
+# /etc/docker/daemon.json
+```
+{
+  "metrics-addr" : "3.143.242.136:8000",
+  "experimental" : true
+}
+
+```
+
+# cat /tmp/prometheus.yaml
+
+```
+# my global config
+global:
+  scrape_interval:     15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
+  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
+  # scrape_timeout is set to the global default (10s).
+
+  # Attach these labels to any time series or alerts when communicating with
+  # external systems (federation, remote storage, Alertmanager).
+  external_labels:
+      monitor: 'codelab-monitor'
+
+# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
+
+rule_files:
+  # - "first.rules"
+  # - "second.rules"
+
+# A scrape configuration containing exactly one endpoint to scrape:
+# Here it's Prometheus itself.
+scrape_configs:
+  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+  - job_name: 'prometheus'
+
+    # metrics_path defaults to '/metrics'
+    # scheme defaults to 'http'.
+
+    static_configs:
+      - targets: ['3.143.242.136:9090']
+
+  - job_name: 'docker'
+         # metrics_path defaults to '/metrics'
+         # scheme defaults to 'http'.
+    metrics_path: /prometheus
+    static_configs:
+      - targets: ['3.143.242.136:8000']
+
+```
+
+ ```
+ docker service create --replicas 1 --name my-prometheus \
+    --mount type=bind,source=/tmp/prometheus.yaml,destination=/etc/prometheus/prometheus.yml \
+    --publish published=9090,target=9090,protocol=tcp \
+    prom/prometheus
+ ```
+ 
